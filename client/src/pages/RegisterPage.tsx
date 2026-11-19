@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+﻿import { useState, type FormEvent } from 'react';
 import { Eye, EyeOff, HeartPulse, LockKeyhole, Mail, UserRound } from 'lucide-react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Brand } from '../components/Brand';
@@ -54,8 +54,9 @@ export function RegisterPage() {
           <button className="button button-primary button-full" disabled={loading}>{loading ? 'Creating account…' : 'Create account'}</button>
         </form>
         <p className="auth-switch">Already have an account? <Link to="/login">Sign in</Link></p>
-        <p className="auth-privacy">Your password is encrypted and your readings stay private.</p>
+        <p className="auth-privacy">Your password is securely hashed and your readings stay private.</p>
       </div>
     </div>
   );
 }
+

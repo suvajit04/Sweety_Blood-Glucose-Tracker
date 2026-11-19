@@ -1,8 +1,8 @@
-import { Prisma, TimeSlot } from '@prisma/client';
+﻿import { Prisma, TimeSlot } from '@prisma/client';
 import { prisma } from '../config/prisma.js';
 import { invalidateUserReportCache } from '../config/redis.js';
 import { AppError } from '../utils/app-error.js';
-import { assertNotFutureDate, parseDateOnly } from '../utils/date.js';
+import { assertNotFutureDate, parseDateOnly, todayInAppTimeZone } from '../utils/date.js';
 import { readingSchema } from '../validators/reading.validator.js';
 
 export interface ReadingInput {
@@ -143,3 +143,23 @@ export async function deleteReading(userId: string, readingId: string) {
   await invalidateUserReportCache(userId);
   return { id: readingId };
 }
+
+
+export async function getTodayReminderStatus(userId: string) {
+  const today = todayInAppTimeZone();
+  const date = parseDateOnly(today);
+
+  const readingCount = await prisma.reading.count({
+    where: { userId, date },
+  });
+
+
+  return {
+    date: today,
+    readingCount,
+    remainingReadings: Math.max(0, 4 - readingCount),
+    shouldShowReminder: readingCount < 4,
+  };
+}
+
+

@@ -1,4 +1,4 @@
-import Redis from 'ioredis';
+﻿import { Redis } from 'ioredis';
 import { env } from './env.js';
 
 export const redis = new Redis(env.REDIS_URL, {
@@ -8,7 +8,7 @@ export const redis = new Redis(env.REDIS_URL, {
   connectTimeout: 1500,
 });
 
-redis.on('error', (error) => {
+redis.on('error', (error: Error) => {
   // Redis is an optimization for reports; a Redis outage must not take down the API.
   console.warn(`[redis] ${error.message}`);
 });

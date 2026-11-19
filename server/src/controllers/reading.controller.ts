@@ -1,7 +1,7 @@
-import type { Request, Response } from 'express';
+﻿import type { Request, Response } from 'express';
 import { z } from 'zod';
 import type { AuthenticatedRequest } from '../middleware/auth.middleware.js';
-import { createReading, deleteReading, getReading, listReadings, updateReading } from '../services/reading.service.js';
+import { createReading, deleteReading, getReading, getTodayReminderStatus, listReadings, updateReading } from '../services/reading.service.js';
 import { readingQuerySchema } from '../validators/reading.validator.js';
 import { AppError } from '../utils/app-error.js';
 
@@ -11,10 +11,10 @@ function userId(req: Request): string {
   return id;
 }
 
-function parseId(value: string): string {
+function parseId(value: unknown): string {
   const parsed = z.string().uuid().safeParse(value);
   if (!parsed.success) throw new AppError(400, 'Invalid reading ID.');
-  return value;
+  return parsed.data;
 }
 
 export async function create(req: Request, res: Response) {
@@ -42,4 +42,13 @@ export async function update(req: Request, res: Response) {
 export async function remove(req: Request, res: Response) {
   await deleteReading(userId(req), parseId(req.params.id));
   res.status(200).json({ success: true, message: 'Reading deleted successfully.', data: null });
+}
+
+
+export async function todaySummary(req: Request, res: Response) {
+  const summary = await getTodayReminderStatus(userId(req));
+  res.status(200).json({
+    success: true,
+    data: summary,
+  });
 }

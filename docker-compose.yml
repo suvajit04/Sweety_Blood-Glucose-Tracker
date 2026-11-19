@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: sweety_local_password
       POSTGRES_DB: sweety
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - sweety_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - sweety_redis_data:/data
     healthcheck:

@@ -1,5 +1,5 @@
-import { Queue, Worker } from 'bullmq';
-import IORedis from 'ioredis';
+﻿import { Queue, Worker } from 'bullmq';
+import { Redis } from 'ioredis';
 import { prisma } from '../config/prisma.js';
 import { env } from '../config/env.js';
 import { parseDateOnly, todayInAppTimeZone } from '../utils/date.js';
@@ -7,7 +7,7 @@ import { parseDateOnly, todayInAppTimeZone } from '../utils/date.js';
 const QUEUE_NAME = 'daily-glucose-reminders';
 
 export async function startDailyReminderWorker(): Promise<() => Promise<void>> {
-  const connection = new IORedis(env.REDIS_URL, {
+  const connection = new Redis(env.REDIS_URL, {
     maxRetriesPerRequest: null,
     enableReadyCheck: false,
   });
@@ -67,3 +67,4 @@ export async function startDailyReminderWorker(): Promise<() => Promise<void>> {
     await connection.quit();
   };
 }
+
