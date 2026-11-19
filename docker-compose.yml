@@ -1,0 +1,77 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sweety-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sweety
+      POSTGRES_PASSWORD: sweety_local_password
+      POSTGRES_DB: sweety
+    ports:
+      - "5432:5432"
+    volumes:
+      - sweety_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sweety -d sweety"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  redis:
+    image: redis:7-alpine
+    container_name: sweety-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - sweety_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: sweety-api
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      CLIENT_ORIGIN: http://localhost:5173
+      DATABASE_URL: postgresql://sweety:sweety_local_password@postgres:5432/sweety?schema=public
+      REDIS_URL: redis://redis:6379
+      COOKIE_SECURE: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    container_name: sweety-web
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "5173:80"
+
+volumes:
+  sweety_postgres_data:
+  sweety_redis_data:
