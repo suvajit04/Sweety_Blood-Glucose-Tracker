@@ -277,6 +277,20 @@ This stops and removes the containers but normally preserves named Docker volume
 | PostgreSQL | localhost:5432 |
 | Redis | localhost:6379 |
 
+## Demo Doctor Screenshots
+
+### Doctor Login
+
+![Demo doctor login](docs/images/demo-doctor-login.png)
+
+### Assigned Patients Dashboard
+
+![Demo doctor assigned patients dashboard](docs/images/demo-doctor-dashboard.png)
+
+### Patient Glucose Report
+
+![Demo doctor patient glucose report](docs/images/demo-doctor-report.png)
+
 ## Project Structure
 
 ```text
