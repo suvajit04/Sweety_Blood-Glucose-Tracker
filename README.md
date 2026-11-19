@@ -277,20 +277,6 @@ This stops and removes the containers but normally preserves named Docker volume
 | PostgreSQL | localhost:5432 |
 | Redis | localhost:6379 |
 
-## Demo Doctor Screenshots
-
-### Doctor Login
-
-![Demo doctor login](docs/images/demo-doctor-login.png)
-
-### Assigned Patients Dashboard
-
-![Demo doctor assigned patients dashboard](docs/images/demo-doctor-dashboard.png)
-
-### Patient Glucose Report
-
-![Demo doctor patient glucose report](docs/images/demo-doctor-report.png)
-
 ## Project Structure
 
 ```text
@@ -328,6 +314,26 @@ sweety/
 - BullMQ runs scheduled background reminder jobs using Redis.
 - Demo seed data is optional and is intended for development and demonstration.
 - This application is intended for tracking and reporting. It does not replace professional medical advice.
+
+## Future Improvements
+
+With more development time, I would improve the application by:
+
+ - Adding email and SMS notifications for missed readings.
+
+ - proving dashboard charts and glucose trend visualizations.
+
+ - Adding downloadable PDF and CSV reports.
+
+ - Implementing stronger authentication with refresh-token rotation and account recovery.
+
+ - Adding more comprehensive unit, integration, and end-to-end tests.
+
+ - Improving mobile responsiveness and accessibility.
+
+ - Adding production monitoring, structured logging, and automated backups.
+
+ - Deploying the application using a production-ready cloud infrastructure.
 
 ## License
 
