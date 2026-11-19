@@ -4,6 +4,10 @@ A full-stack blood glucose tracking application built with React, Node.js, Expre
 
 Sweety allows patients to record daily blood glucose readings, view reports, and track their glucose history. Doctors can view reports for patients assigned to them.
 
+## Demo Video
+
+[![Watch the Sweety demo](https://jam.dev/v/d29aee1c-0ac0-4f92-b8f0-b71c8d4d03df)](https://jam.dev/v/d29aee1c-0ac0-4f92-b8f0-b71c8d4d03df)
+
 ## Features
 
 - Patient registration and login
