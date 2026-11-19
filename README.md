@@ -61,11 +61,9 @@ docker compose version
 ## 1. Clone the Repository
 
 ```powershell
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/suvajit04/Sweety_Blood-Glucose-Tracker.git
 cd sweety
 ```
-
-https://github.com/suvajit04/Sweety_Blood-Glucose-Tracker.git
 
 ## 2. Install Dependencies
 
