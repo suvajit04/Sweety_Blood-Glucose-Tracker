@@ -65,7 +65,7 @@ git clone YOUR_GITHUB_REPOSITORY_URL
 cd sweety
 ```
 
-Replace `YOUR_GITHUB_REPOSITORY_URL` with your public GitHub repository URL.
+https://github.com/suvajit04/Sweety_Blood-Glucose-Tracker.git
 
 ## 2. Install Dependencies
 
